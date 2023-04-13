@@ -5,11 +5,15 @@ using UnityEngine.UI;
 
 public class GetScore : MonoBehaviour
 {
-    public Text score;
+    [SerializeField] private Text score;
 
     private int scoreIndex = 0;
 
+    private int bestScore;
+
     Rigidbody2D rigidbody;
+
+    [SerializeField] private GameObject Quit;
 
     private void Awake()
     {
@@ -27,6 +31,16 @@ public class GetScore : MonoBehaviour
         {
             rigidbody.velocity = Vector3.zero;
             SoundManager.Instance.BirdSound_4.Play();
+
+            score.gameObject.SetActive(false);
+
+            if (PlayerPrefs.GetInt("bestScore", 0) < int.Parse(score.text))
+                PlayerPrefs.SetInt("bestScore", int.Parse(score.text));
+
+            Quit.SetActive(true);
+            Quit.transform.Find("CurrentScoreScreen").GetComponent<Text>().text = score.text;
+            Quit.transform.Find("BestScoreScreen").GetComponent<Text>().text = PlayerPrefs.GetInt("bestScore").ToString();
+
             GameManager.Instance.GameOver();
         }
     }

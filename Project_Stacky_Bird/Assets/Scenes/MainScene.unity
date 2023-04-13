@@ -1224,6 +1224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 1667303388}
+  Quit: {fileID: 1142618106}
 --- !u!1 &795337416
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,7 +2376,6 @@ MonoBehaviour:
   stop: 0
   Floor: {fileID: 950446018}
   White: {fileID: 246375025}
-  Quit: {fileID: 1142618106}
 --- !u!114 &2129494650
 MonoBehaviour:
   m_ObjectHideFlags: 0
