@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
 
+    public bool stop = false;
+
+    [SerializeField] private GameObject Floor;
+
     public static GameManager Instance
     {
         get
@@ -33,5 +37,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Gameover");
+        stop = true;
+        Floor.GetComponent<Animator>().enabled = false; // 죽었으니 Floor 애니메이션 비활성화
     }
 }

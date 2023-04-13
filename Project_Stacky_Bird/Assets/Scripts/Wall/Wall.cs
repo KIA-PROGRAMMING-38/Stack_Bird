@@ -15,6 +15,8 @@ public class Wall : MonoBehaviour
     // º® »ý¼º
     private void Update()
     {
+        if (GameManager.Instance.stop) return;
+
         if (Time.time > nextTime)
         {
             nextTime = (Time.time + 2.5f);
@@ -24,20 +26,20 @@ public class Wall : MonoBehaviour
         }
         if (walls[0])
         {
-            walls[0].transform.Translate(-0.005f, 0, 0);
-            if (walls[0].transform.position.x < -3.5f)
+            walls[0].transform.Translate(-0.01f, 0, 0);
+            if (walls[0].transform.position.x < -4f)
                 Destroy(walls[0]);
         }
         if (walls[1])
         {
-            walls[1].transform.Translate(-0.005f, 0, 0);
-            if (walls[1].transform.position.x < -3.5f)
+            walls[1].transform.Translate(-0.01f, 0, 0);
+            if (walls[1].transform.position.x < -4f)
                 Destroy(walls[1]);
         }
         if (walls[2])
         {
-            walls[2].transform.Translate(-0.005f, 0, 0);
-            if (walls[2].transform.position.x < -3.5f)
+            walls[2].transform.Translate(-0.01f, 0, 0);
+            if (walls[2].transform.position.x < -4f)
                 Destroy(walls[2]);
         }
     }
