@@ -6,12 +6,9 @@ public class PlayerInput : MonoBehaviour
 {
     Rigidbody2D rigidbody;
 
-    GameManager gameManager;
-
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        gameManager = GetComponent<GameManager>();
     }
 
     private void Update()
@@ -23,7 +20,9 @@ public class PlayerInput : MonoBehaviour
             transform.position = new Vector3(-1.5f, 4.75f, 0f);
         if (transform.position.y < -2.65)
             transform.position = new Vector3(-1.5f, -2.65f, 0f);
-        
+
+        if (GameManager.Instance.stop) return;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rigidbody.velocity = Vector3.zero;
