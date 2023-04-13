@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -44,5 +45,10 @@ public class GameManager : MonoBehaviour
         Floor.GetComponent<Animator>().enabled = false; // 죽었으니 Floor 애니메이션 비활성화
 
         White.SetActive(true);
+    }
+
+    public void OnClickRestartButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
