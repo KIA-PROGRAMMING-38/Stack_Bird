@@ -25,19 +25,19 @@ public class Wall : MonoBehaviour
         if (walls[0])
         {
             walls[0].transform.Translate(-0.005f, 0, 0);
-            if (walls[0].transform.position.x < -4f)
+            if (walls[0].transform.position.x < -3.5f)
                 Destroy(walls[0]);
         }
         if (walls[1])
         {
             walls[1].transform.Translate(-0.005f, 0, 0);
-            if (walls[1].transform.position.x < -4f)
+            if (walls[1].transform.position.x < -3.5f)
                 Destroy(walls[1]);
         }
         if (walls[2])
         {
             walls[2].transform.Translate(-0.005f, 0, 0);
-            if (walls[2].transform.position.x < -4f)
+            if (walls[2].transform.position.x < -3.5f)
                 Destroy(walls[2]);
         }
     }
