@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     public bool stop = false;
 
-    [SerializeField] private GameObject Floor, White;
+    [SerializeField] private GameObject Floor, White, SettingScreenBoard, First, Player, PlayerPreview;
 
     public static GameManager Instance
     {
@@ -50,5 +50,24 @@ public class GameManager : MonoBehaviour
     public void OnClickRestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void OnClickSetting()
+    {
+        Time.timeScale = 0f;
+        SettingScreenBoard.SetActive(true);
+    }
+
+    public void OnClickExit()
+    {
+        Time.timeScale = 1f;
+        SettingScreenBoard.SetActive(false);
+    }
+
+    public void OnClickTapToPlay()
+    {
+        First.SetActive(false);
+        Player.SetActive(true);
+        PlayerPreview.SetActive(false);
     }
 }
