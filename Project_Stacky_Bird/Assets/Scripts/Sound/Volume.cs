@@ -12,13 +12,6 @@ public class Volume : MonoBehaviour
 
     [SerializeField] private GameObject onButton, offButton;
 
-    //[SerializeField] private Image btnCurrentImage;
-
-    //private void Awake()
-    //{
-    //    btnCurrentImage = GetComponent<Image>();
-    //}
-
     public void SetBgmVolume()
     {
         audioMixer.SetFloat("Bgm", Mathf.Log10(BgmSlider.value) * 20);
@@ -28,20 +21,6 @@ public class Volume : MonoBehaviour
     {
         audioMixer.SetFloat("Sfx", Mathf.Log10(SfxSlider.value) * 20);
     }
-
-    //public void VolumeOnOff()
-    //{
-    //    if (AudioListener.volume == 1)
-    //    {
-    //        btnCurrentImage.sprite = offIcon;
-    //        AudioListener.volume = 0;
-    //    }
-    //    else
-    //    {
-    //        btnCurrentImage.sprite = onIcon;
-    //        AudioListener.volume = 1;
-    //    }
-    //}
     public void OnclickOnButton()
     {
         AudioListener.volume = 0;
