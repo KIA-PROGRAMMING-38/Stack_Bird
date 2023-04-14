@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - ScoreZone
+  - PlayerClone
   layers:
   - Default
   - TransparentFX

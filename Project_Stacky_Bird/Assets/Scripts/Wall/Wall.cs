@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    [SerializeField] private GameObject wall;
+    [SerializeField] private GameObject WallPrefab;
 
     private GameObject[] walls = new GameObject[3];
     
@@ -20,22 +20,24 @@ public class Wall : MonoBehaviour
         if (Time.time > nextTime)
         {
             nextTime = (Time.time + 2.5f);
-            walls[index] = Instantiate(wall, new Vector3(4f, Random.Range(-1f, 3.2f), 0f), Quaternion.identity);
+            walls[index] = Instantiate(WallPrefab, new Vector3(4f, Random.Range(-1f, 3.2f), 0f), Quaternion.identity);
             ++index;
             if (index == 3) index = 0;
         }
-        WallCreate(0);
-        WallCreate(1);
-        WallCreate(2);
+
+        for (int i = 0; i < walls.Length; ++i)
+        {
+            WallCreate(i);
+        }
     }
 
-    private void WallCreate(int index)
+    private void WallCreate(int i)
     {
-        if (walls[index])
+        if (walls[i])
         {
-            walls[index].transform.Translate(-0.01f, 0, 0);
-            if (walls[index].transform.position.x < -4f)
-                Destroy(walls[index]);
+            walls[i].transform.Translate(-0.01f, 0, 0);
+            if (walls[i].transform.position.x < -4f)
+                Destroy(walls[i]);
         }
     }
 }
