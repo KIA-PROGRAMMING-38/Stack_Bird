@@ -24,23 +24,18 @@ public class Wall : MonoBehaviour
             ++index;
             if (index == 3) index = 0;
         }
-        if (walls[0])
+        WallCreate(0);
+        WallCreate(1);
+        WallCreate(2);
+    }
+
+    private void WallCreate(int index)
+    {
+        if (walls[index])
         {
-            walls[0].transform.Translate(-0.01f, 0, 0);
-            if (walls[0].transform.position.x < -4f)
-                Destroy(walls[0]);
-        }
-        if (walls[1])
-        {
-            walls[1].transform.Translate(-0.01f, 0, 0);
-            if (walls[1].transform.position.x < -4f)
-                Destroy(walls[1]);
-        }
-        if (walls[2])
-        {
-            walls[2].transform.Translate(-0.01f, 0, 0);
-            if (walls[2].transform.position.x < -4f)
-                Destroy(walls[2]);
+            walls[index].transform.Translate(-0.01f, 0, 0);
+            if (walls[index].transform.position.x < -4f)
+                Destroy(walls[index]);
         }
     }
 }
