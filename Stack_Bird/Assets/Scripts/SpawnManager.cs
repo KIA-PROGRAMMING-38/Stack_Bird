@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private GameObject wallPrefab;
 
-    private Vector2 spawnPos = new Vector2(0f, 0f);
+    private Vector2 spawnPos;
 
     private float startDelay = 3f;
     private float repeatRate = 5f;
@@ -19,15 +19,11 @@ public class SpawnManager : MonoBehaviour
         _playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
-    void Update()
-    {
-        
-    }
-
     void SpawnWall()
     {
         if (_playerControllerScript.gameOver == false)
         {
+            spawnPos = new Vector2(0f, Random.Range(0f, 5f));
             Instantiate(wallPrefab, spawnPos, wallPrefab.transform.rotation);
         }
     }

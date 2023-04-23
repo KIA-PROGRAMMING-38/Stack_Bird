@@ -5,7 +5,7 @@ using UnityEngine;
 public class RepeatFloor : MonoBehaviour
 {
     private Vector2 startPos;
-    private float repeatWidth = 40f;
+    private float repeatWidth = 24f;
 
     void Start()
     {
