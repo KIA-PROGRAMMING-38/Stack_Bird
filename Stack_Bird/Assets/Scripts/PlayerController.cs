@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     public bool gameOver = false;
     private int score, bestScore;
+    private float playerLimitCeiling = 5f;
+    private float elapsedTime;
 
     void Start()
     {
@@ -31,11 +33,13 @@ public class PlayerController : MonoBehaviour
 
         score = 0;
         UpdateScore(0);
+
+        elapsedTime = 0;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !gameOver)
+        if (Input.GetKeyDown(KeyCode.Space) && !gameOver && transform.position.y < playerLimitCeiling)
         {
             SpawnPlayerClone();
 
@@ -76,9 +80,33 @@ public class PlayerController : MonoBehaviour
     private void SpawnPlayerClone()
     {
         playerCloneSpawnPos = new Vector2(transform.position.x, transform.position.y);
-        var clone = Instantiate(PlayerClonePrefab, playerCloneSpawnPos, transform.rotation);
-        Destroy(clone, 3f);
+        //var clone = Instantiate(PlayerClonePrefab, playerCloneSpawnPos, transform.rotation);
+        GameObject playerCloneCreate = ObjectPooler.SharedInstance.GetPooledObject();
+        if (playerCloneCreate != null)
+        {
+            playerCloneCreate.SetActive(true);
+            playerCloneCreate.transform.position = playerCloneSpawnPos;
+
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime > 3f)
+            {
+                Debug.Log("Test");
+                playerCloneCreate.SetActive(false);
+                elapsedTime = 0f;
+            }
+        }
+
+        //Destroy(clone, 3f);
+        //Invoke("PlayerCloneHide", 3f);
+
+        // collider 비활성화
+        //PlayerClonePrefab.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
+
+    //private void PlayerCloneHide()
+    //{
+    //    PlayerClonePrefab.gameObject.SetActive(false);
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

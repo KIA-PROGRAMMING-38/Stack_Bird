@@ -4,28 +4,33 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    private PlayerController _playerControllerScript;
+    private PlayerController _playerController;
 
     private float speed = 2.5f;
 
     private float leftBound = -8f;
 
+    Vector2 moveVecLeft;
+
     void Start()
     {
-        _playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        _playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        if (_playerControllerScript.gameOver == false)
+        moveVecLeft = Vector2.left * (speed * Time.deltaTime);
+
+        if (_playerController.gameOver == false)
         {
-            transform.Translate(Vector2.left * (speed * Time.deltaTime));
+            transform.Translate(moveVecLeft);
         }
 
         if (transform.position.x < leftBound && gameObject.CompareTag("WallManager"))
         {
             Debug.Log("Wall Destroy");
             Destroy(gameObject);
+            //gameObject.SetActive(false);
         }
     }
 }

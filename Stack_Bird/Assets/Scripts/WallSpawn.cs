@@ -25,6 +25,12 @@ public class WallSpawn : MonoBehaviour
         {
             spawnPos = new Vector2(0f, Random.Range(1f, 5f));
             Instantiate(wallPrefab, spawnPos, wallPrefab.transform.rotation);
+            //GameObject pooledWall = ObjectPooler.SharedInstance.GetPooledObject();
+            //if (pooledWall != null)
+            //{
+            //    pooledWall.SetActive(true);
+            //    pooledWall.transform.position = spawnPos;
+            //}
         }
     }
 }
