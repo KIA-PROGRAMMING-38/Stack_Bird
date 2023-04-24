@@ -76,12 +76,13 @@ public class PlayerController : MonoBehaviour
     private void SpawnPlayerClone()
     {
         playerCloneSpawnPos = new Vector2(transform.position.x, transform.position.y);
-        Instantiate(PlayerClonePrefab, playerCloneSpawnPos, transform.rotation);
+        var clone = Instantiate(PlayerClonePrefab, playerCloneSpawnPos, transform.rotation);
+        Destroy(clone, 3f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerClone") || collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("SafeZone"))
+        if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("SafeZone"))
         {
             sparkParticle_1.Play();
             sparkParticle_2.Play();

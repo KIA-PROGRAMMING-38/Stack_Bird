@@ -23,7 +23,7 @@ public class WallSpawn : MonoBehaviour
     {
         if (_playerControllerScript.gameOver == false)
         {
-            spawnPos = new Vector2(0f, Random.Range(0f, 5f));
+            spawnPos = new Vector2(0f, Random.Range(1f, 5f));
             Instantiate(wallPrefab, spawnPos, wallPrefab.transform.rotation);
         }
     }

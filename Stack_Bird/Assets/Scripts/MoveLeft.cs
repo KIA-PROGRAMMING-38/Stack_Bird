@@ -24,7 +24,7 @@ public class MoveLeft : MonoBehaviour
 
         if (transform.position.x < leftBound && gameObject.CompareTag("WallManager"))
         {
-            Debug.Log("Destroy");
+            Debug.Log("Wall Destroy");
             Destroy(gameObject);
         }
     }
