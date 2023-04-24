@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem deadParticle, sparkParticle_1, sparkParticle_2;
     [SerializeField] private AudioClip jumpSound, deadSound, getScoreSound;
     [SerializeField] private Text scoreText;
-    [SerializeField] private GameObject Quit;
+    [SerializeField] private GameObject Quit, PlayerClonePrefab;
+
+    private Vector2 playerCloneSpawnPos;
 
     public bool gameOver = false;
     private int score, bestScore;
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !gameOver)
         {
+            SpawnPlayerClone();
+
             playerRb.AddForce(Vector3.up * jumpForce);
 
             sparkParticle_1.Stop();
@@ -69,9 +73,15 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void SpawnPlayerClone()
+    {
+        playerCloneSpawnPos = new Vector2(transform.position.x, transform.position.y);
+        Instantiate(PlayerClonePrefab, playerCloneSpawnPos, transform.rotation);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerClone") || collision.gameObject.CompareTag("Floor"))
+        if (collision.gameObject.CompareTag("PlayerClone") || collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("SafeZone"))
         {
             sparkParticle_1.Play();
             sparkParticle_2.Play();

@@ -622,6 +622,7 @@ MonoBehaviour:
   getScoreSound: {fileID: 8300000, guid: 979bb28c0bb434047a3b2ffe40a72c54, type: 3}
   scoreText: {fileID: 905977107}
   Quit: {fileID: 1893790070}
+  PlayerClonePrefab: {fileID: 2459372955527611581, guid: 51c5aeb3cebd5d64ab64e367c533639a, type: 3}
   gameOver: 0
 --- !u!61 &560051748
 BoxCollider2D:

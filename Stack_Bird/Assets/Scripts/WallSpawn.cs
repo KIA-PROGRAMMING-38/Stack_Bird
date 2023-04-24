@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class WallSpawn : MonoBehaviour
 {
     private PlayerController _playerControllerScript;
 
@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviour
         _playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
-    void SpawnWall()
+    private void SpawnWall()
     {
         if (_playerControllerScript.gameOver == false)
         {
