@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletMove : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     private PlayerController _playerController;
 
@@ -30,6 +30,7 @@ public class BulletMove : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             // º®ÀÌ¶û ºÎµúÈ÷¸é º® ÆÄ±«, Åë°úº¸´Ù ´õ ¸¹Àº Á¡¼ö È¹µæ
+            _playerController.UpdateScore(15);
         }
     }
 }

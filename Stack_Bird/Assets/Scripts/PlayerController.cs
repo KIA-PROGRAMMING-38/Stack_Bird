@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,12 +17,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject Quit, PlayerClonePrefab;
 
-    private Vector2 playerCloneSpawnPos;
+    private Vector2 playerCloneSpawnPos, bulletSpawnPos;
 
     public bool gameOver = false;
     private int score, bestScore;
-    private float playerLimitCeiling = 5f;
-    private float elapsedTime;
+    public float playerLimitCeiling = 5f;
 
     void Start()
     {
@@ -33,8 +33,6 @@ public class PlayerController : MonoBehaviour
 
         score = 0;
         UpdateScore(0);
-
-        elapsedTime = 0;
     }
 
     void Update()
@@ -52,7 +50,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void UpdateScore(int scoreAdd)
+    public void UpdateScore(int scoreAdd)
     {
         score += scoreAdd;
         scoreText.text = $"{score}";
@@ -81,32 +79,29 @@ public class PlayerController : MonoBehaviour
     {
         playerCloneSpawnPos = new Vector2(transform.position.x, transform.position.y);
         //var clone = Instantiate(PlayerClonePrefab, playerCloneSpawnPos, transform.rotation);
-        GameObject playerCloneCreate = ObjectPooler.SharedInstance.GetPooledObject();
-        if (playerCloneCreate != null)
+        GameObject playerCloneSpawn = ObjectPooler.SharedInstance.GetPooledObject();
+        if (playerCloneSpawn != null)
         {
-            playerCloneCreate.SetActive(true);
-            playerCloneCreate.transform.position = playerCloneSpawnPos;
-
-            //elapsedTime += Time.deltaTime;
-            //if (elapsedTime > 3f)
-            //{
-            //    Debug.Log("Test");
-            //    playerCloneCreate.SetActive(false);
-            //    elapsedTime = 0f;
-            //}
+            playerCloneSpawn.SetActive(true);
+            playerCloneSpawn.transform.position = playerCloneSpawnPos;
         }
+
+        ObjectPooler.SharedInstance.SetOrderInLayer();
 
         //Destroy(clone, 3f);
         //Invoke("PlayerCloneHide", 3f);
-
-        // collider 비활성화
-        //PlayerClonePrefab.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    //private void PlayerCloneHide()
-    //{
-    //    PlayerClonePrefab.gameObject.SetActive(false);
-    //}
+    private void SpawnBullet()
+    {
+        bulletSpawnPos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
+        GameObject bulletSpawn = ObjectPooler.SharedInstance.GetPooledObject();
+        if (bulletSpawn != null)
+        {
+            bulletSpawn.SetActive(true);
+            bulletSpawn.transform.position = bulletSpawnPos;
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

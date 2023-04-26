@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
@@ -41,5 +42,25 @@ public class ObjectPooler : MonoBehaviour
 
         // 그렇지 않으면 null을 반환
         return null;
+    }
+
+    public void SetOrderInLayer()
+    {
+        SortedList<float, SpriteRenderer> sortedList = new SortedList<float, SpriteRenderer>();
+
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            // 풀링된 개체가 활성화되지 않은 경우 해당 개체 반환
+            if (!pooledObjects[i].activeInHierarchy)
+                continue;
+
+            sortedList.Add(pooledObjects[i].transform.position.y, pooledObjects[i].GetComponent<SpriteRenderer>());
+        }
+
+        int count = 0;
+        foreach (var playerClone in sortedList)
+        {
+            playerClone.Value.sortingOrder = ++count;
+        }
     }
 }
