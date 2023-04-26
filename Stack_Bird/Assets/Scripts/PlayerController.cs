@@ -87,13 +87,13 @@ public class PlayerController : MonoBehaviour
             playerCloneCreate.SetActive(true);
             playerCloneCreate.transform.position = playerCloneSpawnPos;
 
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime > 3f)
-            {
-                Debug.Log("Test");
-                playerCloneCreate.SetActive(false);
-                elapsedTime = 0f;
-            }
+            //elapsedTime += Time.deltaTime;
+            //if (elapsedTime > 3f)
+            //{
+            //    Debug.Log("Test");
+            //    playerCloneCreate.SetActive(false);
+            //    elapsedTime = 0f;
+            //}
         }
 
         //Destroy(clone, 3f);
