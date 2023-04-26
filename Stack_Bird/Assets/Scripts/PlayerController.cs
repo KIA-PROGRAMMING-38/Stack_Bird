@@ -132,5 +132,10 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(getScoreSound, 0.8f);
             UpdateScore(3);
         }
+
+        //if (collision.gameObject.CompareTag("PerfectZone"))
+        //{
+        //    SpawnBullet();
+        //}
     }
 }
