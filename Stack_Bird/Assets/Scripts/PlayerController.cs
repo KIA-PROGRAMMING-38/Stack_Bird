@@ -37,9 +37,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        playerCloneSpawnPos = new Vector2(transform.position.x, transform.position.y);
+
         if (Input.GetKeyDown(KeyCode.Space) && !gameOver && transform.position.y < playerLimitCeiling)
         {
-            SpawnPlayerClone();
+            GameObject playerClone = ObjectPooler.SpawnFromPool("PlayerClone", playerCloneSpawnPos);
+            playerClone.GetComponent<PlayerCloneSpawn>();
+            ObjectPooler.SetOrderInLayer();
 
             playerRb.AddForce(Vector3.up * jumpForce);
 
@@ -75,33 +79,16 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private void SpawnPlayerClone()
-    {
-        playerCloneSpawnPos = new Vector2(transform.position.x, transform.position.y);
-        //var clone = Instantiate(PlayerClonePrefab, playerCloneSpawnPos, transform.rotation);
-        GameObject playerCloneSpawn = ObjectPooler.SharedInstance.GetPooledObject();
-        if (playerCloneSpawn != null)
-        {
-            playerCloneSpawn.SetActive(true);
-            playerCloneSpawn.transform.position = playerCloneSpawnPos;
-        }
-
-        ObjectPooler.SharedInstance.SetOrderInLayer();
-
-        //Destroy(clone, 3f);
-        //Invoke("PlayerCloneHide", 3f);
-    }
-
-    private void SpawnBullet()
-    {
-        bulletSpawnPos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
-        GameObject bulletSpawn = ObjectPooler.SharedInstance.GetPooledObject();
-        if (bulletSpawn != null)
-        {
-            bulletSpawn.SetActive(true);
-            bulletSpawn.transform.position = bulletSpawnPos;
-        }
-    }
+    //private void SpawnBullet()
+    //{
+    //    bulletSpawnPos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
+    //    GameObject bulletSpawn = ObjectPooler.SharedInstance.GetPooledObject();
+    //    if (bulletSpawn != null)
+    //    {
+    //        bulletSpawn.SetActive(true);
+    //        bulletSpawn.transform.position = bulletSpawnPos;
+    //    }
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -135,6 +122,8 @@ public class PlayerController : MonoBehaviour
 
         //if (collision.gameObject.CompareTag("PerfectZone"))
         //{
+        //    Debug.Log("Test");
+        //    playerAnim.SetBool("isAttackMode", true);
         //    SpawnBullet();
         //}
     }
