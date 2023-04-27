@@ -6,7 +6,7 @@ public class MoveLeft : MonoBehaviour
 {
     private float speed = 2.5f;
 
-    private float leftBound = -8f;
+    private float leftBound = -12f;
 
     Vector2 moveVecLeft;
 

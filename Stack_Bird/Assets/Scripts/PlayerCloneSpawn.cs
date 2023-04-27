@@ -38,7 +38,7 @@ public class PlayerCloneSpawn : MonoBehaviour
         {
             Debug.Log("PlayerClone SetActive(false)");
             playerCloneAnim.SetBool("isCollision", true);
-            Invoke("PlayerCloneHide", 2f);
+            Invoke(nameof(PlayerCloneHide), 2f);
         }
     }
 }

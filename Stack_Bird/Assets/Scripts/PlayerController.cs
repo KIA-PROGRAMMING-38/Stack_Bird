@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float jumpForce, gravityForce;
     [SerializeField] private ParticleSystem deadParticle, sparkParticle_1, sparkParticle_2;
-    [SerializeField] private AudioClip jumpSound, deadSound, getScoreSound;
-    [SerializeField] private Text scoreText;
+    [SerializeField] private AudioClip jumpSound, deadSound, getScoreSound, perfectZoneSound, shootyModeSound;
+    [SerializeField] private Text scoreText, perfectZoneText, shootyModeText;
     [SerializeField] private GameObject Quit, PlayerClonePrefab;
 
     private Vector2 playerCloneSpawnPos, bulletSpawnPos;
@@ -121,15 +121,31 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("PerfectZone"))
         {
             ++perfectZoneCount;
+
+            perfectZoneText.gameObject.SetActive(true);
+            playerAudio.PlayOneShot(perfectZoneSound, 0.8f);
+            StartCoroutine(TextHide(perfectZoneText));
+
             if (perfectZoneCount >= 3)
             {
-                Debug.Log($"onTriggerCount = {perfectZoneCount}");
+                perfectZoneText.gameObject.SetActive(false);
+                shootyModeText.gameObject.SetActive(true);
+                playerAudio.PlayOneShot(shootyModeSound, 0.8f);
+                StartCoroutine(TextHide(shootyModeText));
+
                 StartCoroutine(TimeUpdate(0));
+
                 perfectZoneCount = 0;
             }
         }
     }
-    
+
+    IEnumerator TextHide(Text textObj)
+    {
+        yield return new WaitForSeconds(2f);
+        textObj.gameObject.SetActive(false);
+    }
+
     private IEnumerator TimeUpdate(int timeCount)
     {
         while (timeCount <= 12)
