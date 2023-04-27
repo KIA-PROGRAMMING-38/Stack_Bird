@@ -17,6 +17,27 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        BulletMoveRight();
+    }
+
+    private void OnEnable()
+    {
+        Invoke(nameof(BulletHide), 5);
+    }
+
+    private void OnDisable()
+    {
+        ObjectPooler.ReturnToPool(gameObject);
+        CancelInvoke();
+    }
+
+    private void BulletHide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void BulletMoveRight()
+    {
         moveVecRight = Vector2.right * (speed * Time.deltaTime);
 
         if (_playerController.gameOver == false)

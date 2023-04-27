@@ -19,9 +19,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 playerCloneSpawnPos, bulletSpawnPos;
 
-    public bool gameOver = false;
+    public bool gameOver { get; private set; } = false;
     private int score, bestScore;
-    public float playerLimitCeiling = 5f;
+    public float playerLimitCeiling { get; private set; } = 5f;
 
     void Start()
     {
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         playerCloneSpawnPos = new Vector2(transform.position.x, transform.position.y);
+        bulletSpawnPos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
 
         if (Input.GetKeyDown(KeyCode.Space) && !gameOver && transform.position.y < playerLimitCeiling)
         {
@@ -79,17 +80,6 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    //private void SpawnBullet()
-    //{
-    //    bulletSpawnPos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
-    //    GameObject bulletSpawn = ObjectPooler.SharedInstance.GetPooledObject();
-    //    if (bulletSpawn != null)
-    //    {
-    //        bulletSpawn.SetActive(true);
-    //        bulletSpawn.transform.position = bulletSpawnPos;
-    //    }
-    //}
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("SafeZone"))
@@ -114,17 +104,26 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        int onTriggerCount = 0;
+        ++onTriggerCount;
+
         if (collision.gameObject.CompareTag("GetScoreZone"))
         {
             playerAudio.PlayOneShot(getScoreSound, 0.8f);
             UpdateScore(3);
         }
 
-        //if (collision.gameObject.CompareTag("PerfectZone"))
-        //{
-        //    Debug.Log("Test");
-        //    playerAnim.SetBool("isAttackMode", true);
-        //    SpawnBullet();
-        //}
+        if (onTriggerCount > 3)
+        {
+            if (collision.gameObject.CompareTag("PerfectZone"))
+            {
+                playerAnim.SetBool("isAttackMode", true);
+
+                GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", bulletSpawnPos);
+                bullet.GetComponent<Bullet>();
+            }
+
+            onTriggerCount = 0;
+        }
     }
 }
