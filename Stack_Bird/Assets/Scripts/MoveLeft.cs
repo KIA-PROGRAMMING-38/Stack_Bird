@@ -4,24 +4,17 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    private PlayerController _playerController;
-
     private float speed = 2.5f;
 
     private float leftBound = -8f;
 
     Vector2 moveVecLeft;
 
-    void Start()
-    {
-        _playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-    }
-
     void Update()
     {
         moveVecLeft = Vector2.left * (speed * Time.deltaTime);
 
-        if (_playerController.gameOver == false)
+        if (PlayerController.gameOver == false)
         {
             transform.Translate(moveVecLeft);
         }
@@ -30,7 +23,6 @@ public class MoveLeft : MonoBehaviour
         {
             Debug.Log("Wall Destroy");
             Destroy(gameObject);
-            //gameObject.SetActive(false);
         }
     }
 }

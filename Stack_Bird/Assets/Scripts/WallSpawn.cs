@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WallSpawn : MonoBehaviour
 {
-    private PlayerController _playerControllerScript;
-
     [SerializeField] private GameObject wallPrefab;
 
     private Vector2 spawnPos;
@@ -16,12 +14,11 @@ public class WallSpawn : MonoBehaviour
     void Start()
     {
         InvokeRepeating("SpawnWall", startDelay, repeatRate);
-        _playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     private void SpawnWall()
     {
-        if (_playerControllerScript.gameOver == false)
+        if (PlayerController.gameOver == false)
         {
             spawnPos = new Vector2(0f, Random.Range(1f, 5f));
             Instantiate(wallPrefab, spawnPos, wallPrefab.transform.rotation);

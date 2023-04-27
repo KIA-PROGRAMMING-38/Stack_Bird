@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D playerRb;
     private Animator playerAnim;
     private AudioSource playerAudio;
+
+    public static System.Action actionPlayerController;
 
     [SerializeField] private float jumpForce, gravityForce;
     [SerializeField] private ParticleSystem deadParticle, sparkParticle_1, sparkParticle_2;
@@ -19,9 +22,14 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 playerCloneSpawnPos, bulletSpawnPos;
 
-    public bool gameOver { get; private set; } = false;
-    private int score, bestScore;
+    public static bool gameOver { get; private set; } = false;
+    private int score, bestScore, perfectZoneCount;
     public float playerLimitCeiling { get; private set; } = 5f;
+
+    private void Awake()
+    {
+        actionPlayerController = () => { UpdateScore(15); };
+    }
 
     void Start()
     {
@@ -104,26 +112,34 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        int onTriggerCount = 0;
-        ++onTriggerCount;
-
         if (collision.gameObject.CompareTag("GetScoreZone"))
         {
             playerAudio.PlayOneShot(getScoreSound, 0.8f);
             UpdateScore(3);
         }
 
-        if (onTriggerCount > 3)
+        if (collision.gameObject.CompareTag("PerfectZone"))
         {
-            if (collision.gameObject.CompareTag("PerfectZone"))
+            ++perfectZoneCount;
+            if (perfectZoneCount >= 3)
             {
-                playerAnim.SetBool("isAttackMode", true);
-
-                GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", bulletSpawnPos);
-                bullet.GetComponent<Bullet>();
+                Debug.Log($"onTriggerCount = {perfectZoneCount}");
+                StartCoroutine(TimeUpdate(0));
+                perfectZoneCount = 0;
             }
-
-            onTriggerCount = 0;
+        }
+    }
+    
+    private IEnumerator TimeUpdate(int timeCount)
+    {
+        while (timeCount <= 12)
+        {
+            ++timeCount;
+            playerAnim.SetBool("isAttackMode", true);
+            GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", bulletSpawnPos);
+            bullet.GetComponent<Bullet>();
+            yield return new WaitForSeconds(0.5f);
+            playerAnim.SetBool("isAttackMode", false);
         }
     }
 }

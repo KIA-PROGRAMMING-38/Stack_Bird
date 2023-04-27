@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private PlayerController _playerController;
+    private AudioSource bulletAudio;
+
+    [SerializeField] private AudioClip crashSound;
 
     [SerializeField] private float speed;
 
     Vector2 moveVecRight;
 
-    void Start()
+    private void Start()
     {
-        _playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        bulletAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -40,7 +42,7 @@ public class Bullet : MonoBehaviour
     {
         moveVecRight = Vector2.right * (speed * Time.deltaTime);
 
-        if (_playerController.gameOver == false)
+        if (PlayerController.gameOver == false)
         {
             transform.Translate(moveVecRight);
         }
@@ -50,8 +52,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            // º®ÀÌ¶û ºÎµúÈ÷¸é º® ÆÄ±«, Åë°úº¸´Ù ´õ ¸¹Àº Á¡¼ö È¹µæ
-            _playerController.UpdateScore(15);
+            PlayerController.actionPlayerController();
+            bulletAudio.PlayOneShot(crashSound, 0.8f);
+            collision.gameObject.SetActive(false);
         }
     }
 }
