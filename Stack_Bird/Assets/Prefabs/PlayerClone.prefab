@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2459372955527611576}
   - component: {fileID: 2459372955527611583}
   - component: {fileID: 2459372955527611582}
+  - component: {fileID: 7637542768025530282}
   - component: {fileID: -8522755254309932141}
   m_Layer: 0
   m_Name: PlayerClone
@@ -143,7 +144,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.017305356, y: -0.23884028}
+  m_Offset: {x: 0.01730536, y: -0.19811791}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -154,7 +155,33 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.18236455, y: 0.16518998}
+  m_Size: {x: 0.18236455, y: 0.083745226}
+  m_EdgeRadius: 0
+--- !u!61 &7637542768025530282
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459372955527611581}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0022623353, y: -0.2794007}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.13775739, y: 0.08119857}
   m_EdgeRadius: 0
 --- !u!114 &-8522755254309932141
 MonoBehaviour:

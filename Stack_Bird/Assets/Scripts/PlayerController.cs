@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 
@@ -22,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 playerCloneSpawnPos, bulletSpawnPos;
 
-    public static bool gameOver { get; private set; } = false;
+    public static bool gameOver = false;
     private int score, bestScore, perfectZoneCount;
     public float playerLimitCeiling { get; private set; } = 5f;
 
@@ -44,6 +43,16 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
+    {
+        PlayerUpdate();
+
+        if (Input.GetKeyDown(KeyCode.A)) // 총알 테스트용 
+        {
+            TestBullet();
+        }
+    }
+
+    private void PlayerUpdate()
     {
         playerCloneSpawnPos = new Vector2(transform.position.x, transform.position.y);
         bulletSpawnPos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
@@ -83,11 +92,6 @@ public class PlayerController : MonoBehaviour
         Quit.transform.Find("BestScoreScreenBoard").GetComponent<Text>().text = PlayerPrefs.GetInt("bestScore").ToString();
     }
 
-    public void ReStart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("SafeZone"))
@@ -96,7 +100,7 @@ public class PlayerController : MonoBehaviour
             sparkParticle_2.Play();
         }
 
-        else if (collision.gameObject.CompareTag("Wall")) 
+        if (collision.gameObject.CompareTag("Wall"))
         {
             GameOver();
 
@@ -133,7 +137,7 @@ public class PlayerController : MonoBehaviour
                 playerAudio.PlayOneShot(shootyModeSound, 0.8f);
                 StartCoroutine(TextHide(shootyModeText));
 
-                StartCoroutine(TimeUpdate(0));
+                StartCoroutine(SpawnBullet(0));
 
                 perfectZoneCount = 0;
             }
@@ -146,16 +150,23 @@ public class PlayerController : MonoBehaviour
         textObj.gameObject.SetActive(false);
     }
 
-    private IEnumerator TimeUpdate(int timeCount)
+    private IEnumerator SpawnBullet(int timeCount)
     {
-        while (timeCount <= 12)
+        while (timeCount <= 20)
         {
             ++timeCount;
             playerAnim.SetBool("isAttackMode", true);
             GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", bulletSpawnPos);
             bullet.GetComponent<Bullet>();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             playerAnim.SetBool("isAttackMode", false);
         }
+    }
+
+    // 테스트 모드 총알 발사 기능
+    private void TestBullet()
+    {
+        GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", bulletSpawnPos);
+        bullet.GetComponent<Bullet>();
     }
 }

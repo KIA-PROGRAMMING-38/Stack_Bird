@@ -36,7 +36,6 @@ public class PlayerCloneSpawn : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("PlayerClone SetActive(false)");
             playerCloneAnim.SetBool("isCollision", true);
             Invoke(nameof(PlayerCloneHide), 2f);
         }

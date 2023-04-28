@@ -230,7 +230,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!114 &445018468642551330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,5 +243,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c142b172bd0c94599800135c35db67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crashSound: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
+  crashSound: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
   speed: 3

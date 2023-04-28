@@ -434,9 +434,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 560051747}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ReStart
+      - m_Target: {fileID: 923438782}
+        m_TargetAssemblyTypeName: SettingMenu, Assembly-CSharp
+        m_MethodName: OnClickReStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3644,7 +3644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993d73b2f07415c4581dfd78e17cd09f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallPrefab: {fileID: 6286397980976013988, guid: 807eabede4fb4c14f9683ea0e9fd329f, type: 3}
+  wallPrefab: {fileID: 5347513192815558364, guid: af61a165a76470542a73adf15ba68c4a, type: 3}
 --- !u!1 &1427292582
 GameObject:
   m_ObjectHideFlags: 0

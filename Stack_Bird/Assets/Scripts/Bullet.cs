@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Bullet : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed;
 
     Vector2 moveVecRight;
+
+    private float rightBound = 2.4f;
 
     private void Start()
     {
@@ -46,6 +49,11 @@ public class Bullet : MonoBehaviour
         {
             transform.Translate(moveVecRight);
         }
+
+        if (transform.position.x > rightBound && gameObject.CompareTag("Bullet"))
+        {
+            BulletHide();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -53,8 +61,11 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             PlayerController.actionPlayerController();
+
             bulletAudio.PlayOneShot(crashSound, 0.8f);
+
             collision.gameObject.SetActive(false);
+            Invoke (nameof(BulletHide), 0.05f);
         }
     }
 }

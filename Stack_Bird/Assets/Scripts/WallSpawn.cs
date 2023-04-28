@@ -11,16 +11,21 @@ public class WallSpawn : MonoBehaviour
     private float startDelay = 3f;
     private float repeatRate = 5f;
 
+    private int randomSpawnPos_Min = 0;
+    private int randomSpawnPos_Max = 6;
+    private float spawnPos_x = 1f;
+    private float spawnPos_y = 1.4f;
+
     void Start()
     {
-        InvokeRepeating("SpawnWall", startDelay, repeatRate);
+        InvokeRepeating(nameof(SpawnWall), startDelay, repeatRate);
     }
 
     private void SpawnWall()
     {
         if (PlayerController.gameOver == false)
         {
-            spawnPos = new Vector2(0f, Random.Range(1f, 5f));
+            spawnPos = new Vector2(0f, Random.Range(randomSpawnPos_Min, randomSpawnPos_Max)) + new Vector2(spawnPos_x, spawnPos_y);
             Instantiate(wallPrefab, spawnPos, wallPrefab.transform.rotation);
         }
     }

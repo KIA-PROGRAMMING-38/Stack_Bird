@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingMenu : MonoBehaviour
@@ -93,5 +94,12 @@ public class SettingMenu : MonoBehaviour
     {
         // isMuted가 true면 1이 저장, false면 0을 저장
         PlayerPrefs.SetInt("isMuted", isMuted ? trueInt : falseInt);
+    }
+
+    public void OnClickReStartButton()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
+        PlayerController.gameOver = false;
     }
 }
