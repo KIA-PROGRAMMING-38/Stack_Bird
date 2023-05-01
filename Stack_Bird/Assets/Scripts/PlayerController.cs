@@ -45,11 +45,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerUpdate();
-
-        if (Input.GetKeyDown(KeyCode.A)) // 총알 테스트용 
-        {
-            TestBullet();
-        }
     }
 
     private void PlayerUpdate()
@@ -161,12 +156,5 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             playerAnim.SetBool("isAttackMode", false);
         }
-    }
-
-    // 테스트 모드 총알 발사 기능
-    private void TestBullet()
-    {
-        GameObject bullet = ObjectPooler.SpawnFromPool("Bullet", bulletSpawnPos);
-        bullet.GetComponent<Bullet>();
     }
 }

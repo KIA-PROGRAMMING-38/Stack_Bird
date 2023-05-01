@@ -21,7 +21,6 @@ public class PlayerCloneSpawn : MonoBehaviour
         ObjectPooler.ReturnToPool(gameObject);
         CancelInvoke();
 
-        // 플레이어클론이 사라진 이후 알파값을 0으로 바꾼것을 다시 1로 되돌림
         Color color = GetComponent<SpriteRenderer>().color;
         color.a = 1f;
         GetComponent<SpriteRenderer>().color = color;

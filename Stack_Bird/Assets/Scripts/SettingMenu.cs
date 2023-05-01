@@ -86,13 +86,11 @@ public class SettingMenu : MonoBehaviour
 
     private void LoadValue()
     {
-        // 저장된 isMuted가 1이면 true, 0이면 false
         isMuted = PlayerPrefs.GetInt("isMuted") == trueInt;
     }
 
     private void SavedValue()
     {
-        // isMuted가 true면 1이 저장, false면 0을 저장
         PlayerPrefs.SetInt("isMuted", isMuted ? trueInt : falseInt);
     }
 
